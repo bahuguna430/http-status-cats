@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTTP Cat Gallery</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <h1>HTTP Cat Gallery 🐱</h1>
+
+  <!-- 🔍 Search Section -->
+  <div class="search-wrapper">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input 
+        type="text" 
+        id="search" 
+        placeholder="Search status code or description..."
+        autocomplete="off"
+      >
+      <button id="backBtn" class="clear-btn" title="Clear">✖</button>
+    </div>
+  </div>
+
+  <!-- Gallery -->
+  <div class="grid" id="catGrid">
+    <% statusCodes.forEach(item => { %>
+      <div 
+        class="card" 
+        data-code="<%= item.code %>" 
+        data-text="<%= item.text.toLowerCase() %>"
+      >
+        <a href="https://http.cat/<%= item.code %>" target="_blank">
+          <img src="https://http.cat/<%= item.code %>.jpg" alt="HTTP Cat <%= item.code %>">
+        </a>
+        <p><%= item.code %> - <%= item.text %></p>
+      </div>
+    <% }) %>
+  </div>
+
+  <!-- JS -->
+  <script>
+    const searchInput = document.getElementById("search");
+    const cards = document.querySelectorAll(".card");
+    const backBtn = document.getElementById("backBtn");
+
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.toLowerCase().trim();
+
+      cards.forEach(card => {
+        const code = card.dataset.code;
+        const text = card.dataset.text;
+        card.style.display =
+          code.includes(query) || text.includes(query) ? "block" : "none";
+      });
+
+      backBtn.style.display = query ? "block" : "none";
+    });
+
+    backBtn.addEventListener("click", () => {
+      searchInput.value = "";
+      cards.forEach(card => card.style.display = "block");
+      backBtn.style.display = "none";
+      searchInput.focus();
+    });
+  </script>
+
+</body>
+</html>

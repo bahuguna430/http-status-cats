@@ -1,0 +1,96 @@
+import express from "express";
+const app = express();
+const port = 3000;
+
+app.set("view engine", "ejs");
+app.use(express.static("public"));
+
+// List of HTTP status codes with descriptions
+const statusCodes = [
+  { code: 100, text: "Continue" },
+  { code: 101, text: "Switching Protocols" },
+  { code: 102, text: "Processing" },
+  { code: 103, text: "Early Hints" },
+  { code: 200, text: "OK" },
+  { code: 201, text: "Created" },
+  { code: 202, text: "Accepted" },
+  { code: 203, text: "Non-Authoritative Information" },
+  { code: 204, text: "No Content" },
+  { code: 205, text: "Reset Content" },
+  { code: 206, text: "Partial Content" },
+  { code: 207, text: "Multi-Status" },
+  { code: 208, text: "Already Reported" },
+  { code: 214, text: "Transformation Applied" },
+  { code: 226, text: "IM Used" },
+  { code: 300, text: "Multiple Choices" },
+  { code: 301, text: "Moved Permanently" },
+  { code: 302, text: "Found" },
+  { code: 303, text: "See Other" },
+  { code: 304, text: "Not Modified" },
+  { code: 305, text: "Use Proxy" },
+  { code: 307, text: "Temporary Redirect" },
+  { code: 308, text: "Permanent Redirect" },
+  { code: 400, text: "Bad Request" },
+  { code: 401, text: "Unauthorized" },
+  { code: 402, text: "Payment Required" },
+  { code: 403, text: "Forbidden" },
+  { code: 404, text: "Not Found" },
+  { code: 405, text: "Method Not Allowed" },
+  { code: 406, text: "Not Acceptable" },
+  { code: 407, text: "Proxy Authentication Required" },
+  { code: 408, text: "Request Timeout" },
+  { code: 409, text: "Conflict" },
+  { code: 410, text: "Gone" },
+  { code: 411, text: "Length Required" },
+  { code: 412, text: "Precondition Failed" },
+  { code: 413, text: "Payload Too Large" },
+  { code: 414, text: "Request-URI Too Long" },
+  { code: 415, text: "Unsupported Media Type" },
+  { code: 416, text: "Request Range Not Satisfiable" },
+  { code: 417, text: "Expectation Failed" },
+  { code: 418, text: "I’m a teapot" },
+  { code: 419, text: "Page Expired" },
+  { code: 420, text: "Enhance Your Calm" },
+  { code: 421, text: "Misdirected Request" },
+  { code: 422, text: "Unprocessable Entity" },
+  { code: 423, text: "Locked" },
+  { code: 424, text: "Failed Dependency" },
+  { code: 425, text: "Too Early" },
+  { code: 426, text: "Upgrade Required" },
+  { code: 428, text: "Precondition Required" },
+  { code: 429, text: "Too Many Requests" },
+  { code: 431, text: "Request Header Fields Too Large" },
+  { code: 444, text: "No Response" },
+  { code: 450, text: "Blocked by Windows Parental Controls" },
+  { code: 451, text: "Unavailable For Legal Reasons" },
+  { code: 495, text: "SSL Certificate Error" },
+  { code: 496, text: "SSL Certificate Required" },
+  { code: 497, text: "HTTP Request Sent to HTTPS Port" },
+  { code: 498, text: "Token expired/invalid" },
+  { code: 499, text: "Client Closed Request" },
+  { code: 500, text: "Internal Server Error" },
+  { code: 501, text: "Not Implemented" },
+  { code: 502, text: "Bad Gateway" },
+  { code: 503, text: "Service Unavailable" },
+  { code: 504, text: "Gateway Timeout" },
+  { code: 506, text: "Variant Also Negotiates" },
+  { code: 507, text: "Insufficient Storage" },
+  { code: 508, text: "Loop Detected" },
+  { code: 509, text: "Bandwidth Limit Exceeded" },
+  { code: 510, text: "Not Extended" },
+  { code: 511, text: "Network Authentication Required" },
+  { code: 521, text: "Web Server Is Down" },
+  { code: 522, text: "Connection Timed Out" },
+  { code: 523, text: "Origin Is Unreachable" },
+  { code: 525, text: "SSL Handshake Failed" },
+  { code: 530, text: "Site Frozen" },
+  { code: 599, text: "Network Connect Timeout Error" },
+];
+
+app.get("/", (req, res) => {
+  res.render("index", { statusCodes });
+});
+
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
